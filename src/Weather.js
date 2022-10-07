@@ -4,17 +4,20 @@ import ShowWeather from "./ShowWeather";
 import "./Weather.css";
 
 export default function Weather() {
-  let [cityName, setCityName] = useState("null");
+  let [cityName, setCityName] = useState("Oslo");
+  let [cityListener, setCityListener] = useState("Oslo");
   let apiKey = `dbfe710d4217359672738bda52809ad7`;
   let [currentWeather, setCurrentWeather] = useState({});
-  setCurrentWeather.icon = `http://openweathermap.org/img/wn/04d@2x.png`;
-  console.log(currentWeather.icon);
 
   function takeCityName(event) {
-    setCityName(event.target.value);
+    // setCityName(event.target.value);
+    setCityListener(event.target.value);
+    console.log(cityListener);
+    console.log(cityName);
   }
 
   function getWeather(event) {
+    setCityName(cityListener);
     event.preventDefault();
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
     axios.get(url).then(showWeather);
@@ -30,8 +33,11 @@ export default function Weather() {
       icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
     });
   }
-
-  // let iconUrl = `http://openweathermap.org/img/wn/${currentWeatherIconIndex}@2x.png`;
+  axios
+    .get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`
+    )
+    .then(showWeather);
   return (
     <div className="Weather">
       <div className="container">
