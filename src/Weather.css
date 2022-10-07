@@ -1,0 +1,16 @@
+.Weather {
+  width: 700px;
+  margin: 60px auto 20px auto;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px rgba(43, 67, 83, 0.4);
+  background-color: #9cd3d3;
+  color: #2b4353;
+}
+form {
+  padding: 13px;
+}
+ul {
+  list-style: none;
+  padding-left: 0;
+}
