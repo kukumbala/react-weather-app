@@ -1,45 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import ShowWeather from "./ShowWeather";
 import "./Weather.css";
 
 export default function Weather() {
+  let [cityName, setCityName] = useState("null");
+  let apiKey = `dbfe710d4217359672738bda52809ad7`;
+  let [currentWeather, setCurrentWeather] = useState({});
+  setCurrentWeather.icon = `http://openweathermap.org/img/wn/04d@2x.png`;
+  console.log(currentWeather.icon);
+
+  function takeCityName(event) {
+    setCityName(event.target.value);
+  }
+
+  function getWeather(event) {
+    event.preventDefault();
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
+    axios.get(url).then(showWeather);
+  }
+
+  function showWeather(response) {
+    setCurrentWeather({
+      temperature: response.data.main.temp,
+      humidity: response.data.main.humidity,
+      description: response.data.weather[0].description,
+      wind: response.data.wind.speed,
+      pressure: response.data.main.pressure,
+      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+    });
+  }
+
+  // let iconUrl = `http://openweathermap.org/img/wn/${currentWeatherIconIndex}@2x.png`;
   return (
     <div className="Weather">
       <div className="container">
-        <div className="row">
-          <div className="col-5">
-            <h1>Zaporizhzhia</h1>
-          </div>
-          <div className="col-7">
-            <form>
-              <input type="text" placeholder="Choose your city" id="city" />
-              <button type="button" id="button">
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
+        <form>
+          <input
+            type="text"
+            placeholder="Enter a city..."
+            onChange={takeCityName}
+          />
+          <button onClick={getWeather}>Search</button>
+        </form>
+
         <br />
-        <div className="row">
-          <div className="col-3">
-            <h2> 10°C</h2>
-            <ul>
-              <li>Sunny</li>
-            </ul>
-          </div>
-          <div className="col-2">
-            <img
-              src="http://openweathermap.org/img/wn/01d@2x.png"
-              alt="Weather icon"
-            />
-          </div>
-          <div className="col-4">
-            <ul>
-              <li>Pressure 1042hPa</li>
-              <li>Humidity 56%</li>
-              <li>Wind 2m/s</li>
-            </ul>
-          </div>
-        </div>
+        <ShowWeather city={cityName} weather={currentWeather} />
       </div>
     </div>
   );
