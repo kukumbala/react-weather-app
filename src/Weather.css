@@ -1,4 +1,10 @@
-.Weather {
+form {
+  padding-top: 20px;
+}
+ul {
+  list-style: none;
+}
+.WeatherCard {
   width: 700px;
   margin: 60px auto 20px auto;
   padding: 15px;
@@ -7,9 +13,6 @@
   background-color: #9cd3d3;
   color: #2b4353;
 }
-form {
-  padding-top: 20px;
-}
-ul {
-  list-style: none;
+.Footer {
+  text-align: center;
 }
