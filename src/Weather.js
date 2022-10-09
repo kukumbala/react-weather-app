@@ -60,10 +60,10 @@ export default function Weather() {
         <a
           href="https://github.com/kukumbala/react-weather-app"
           target="_blank"
+          rel="noreferrer"
         >
           Open source code
         </a>{" "}
-        by Alex
       </div>
     </div>
   );
